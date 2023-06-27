@@ -5,7 +5,11 @@ CC =	gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC =	src/
+SRC =	src/main.c \
+	src/ft_init.c \
+	src/ft_init_utils.c \
+	gnl/get_next_line.c \
+	gnl/get_next_line_utils.c \
 
 OBJ =	$(SRC:.c=.o)
 
