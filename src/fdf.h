@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:54:49 by gbricot           #+#    #+#             */
-/*   Updated: 2023/06/27 13:35:37 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/06/27 17:27:45 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_H
 
 # include "../lib/ft_printf.h"
-# include "../gnl/gwet_next_line.h"
+# include "../gnl/get_next_line.h"
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 
@@ -29,9 +29,8 @@
 
 typedef struct s_node
 {
-	char	nb;
+	int	nb;
 	int	color;
-	t_node	*next;
 }			t_node;
 
 typedef struct s_map
@@ -43,7 +42,15 @@ typedef struct s_map
 
 typedef struct s_vars
 {
-	t_map	*map;		
+	t_map	*map;
 }			t_vars;
+
+t_node	*ft_export_data(char *line, t_map *map);
+t_node	**ft_write_map(t_map *map, int fd);
+t_node	**ft_add_map(t_map *map, t_node **old_map, char *line);
+
+t_map	*ft_init_map(char *name);
+
+t_vars	*ft_init_fdf(int ac, char **av);
 
 #endif
