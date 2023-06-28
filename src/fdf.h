@@ -42,15 +42,25 @@ typedef struct s_map
 
 typedef struct s_vars
 {
-	t_map	*map;
+	void	*mlx;
+	void	*win;
+	void	*img;
+	int	mouse_x;
+	int	mouse_y;
+	t_map	*map_info;
+
 }			t_vars;
 
-t_node	*ft_export_data(char *line, t_map *map);
-t_node	**ft_write_map(t_map *map, int fd);
-t_node	**ft_add_map(t_map *map, t_node **old_map, char *line);
+int		ft_count_weight(char *line);
 
-t_map	*ft_init_map(char *name);
+void	ft_free_all(t_vars *vars);
 
-t_vars	*ft_init_fdf(int ac, char **av);
+t_node	*ft_create_node_list(char *line, t_map *map_info);
+t_node	**ft_add_data(t_node *data, t_node **tab, t_map *map_info);
+t_node	**ft_read_map(int fd, char *line, t_map *map_info);
+
+t_map	*ft_init_map(char **av);
+
+t_vars	*ft_init_fdf(char **av);
 
 #endif

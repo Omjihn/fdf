@@ -6,7 +6,7 @@
 #    By: gbricot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/27 16:10:49 by gbricot           #+#    #+#              #
-#    Updated: 2023/06/27 16:17:59 by gbricot          ###   ########.fr        #
+#    Updated: 2023/06/28 14:05:11 by gbricot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 SRC =	src/main.c \
 	src/ft_init.c \
+	src/ft_free_all.c \
 	gnl/get_next_line.c \
 	gnl/get_next_line_utils.c
 
@@ -28,7 +29,7 @@ LIB =	lib/libftprintf.a \
 
 $(NAME): $(OBJ)
 	cd minilibx-linux && make
-	$(CC) $(CFLAGS) $(LIB) $(OBJ) -Lmlx_linux -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) -Lmlx_linux -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 
 all: $(NAME)

@@ -6,125 +6,137 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:40 by gbricot           #+#    #+#             */
-/*   Updated: 2023/06/27 17:49:47 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/06/28 14:19:13 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	ft_get_weight(char *line)
+int	ft_count_weight(char *line)
 {
 	int	i;
-	int	j;
+	int	in_word;
+	int	words;
 
-	j = 0;
 	i = 0;
-	while (line[i])
+	in_word = 0;
+	words = 0;
+	while (line[i] && line[i] != '\n')
 	{
-		if (line[i] == ' ')
-			j++;
+		if (line[i] == ' ' && in_word == 1)
+			in_word = 0;
+		if (line[i] != ' ')
+		{
+			if (in_word == 0)
+			{
+				in_word = 1;
+				words++;
+			}
+		}
 		i++;
 	}
-	return (j);
-}
+	return (words);
+}			
 
-t_node	*ft_export_data(char *line, t_map *map)
+t_node	*ft_create_node_list(char *line, t_map *map_info)
 {
 	int		i;
-	int		j;
-	t_node		*data;
+	int		tab;
+	t_node	*res;
 
-	data = calloc(sizeof(t_node), map->weight + 1);
+	res = calloc (map_info->weight, sizeof(t_node));
 	i = 0;
-	j = 0;
+	tab = 0;
 	while (line[i])
 	{
-		data[j].nb = atoi(line + i);
-		while (line[i] < '9' && line[i] > '0')
-			i++;
-		if (line[i] == ',')
+		if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
 		{
-			//data[j].color = ft_atoi_base(line + i); // a faire
-			i += 9;
+			res[tab].nb = atoi(line + i);
+			while ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')
+				i++;
+			if (line[i] == ',')
+			{
+				//res[tab].color = ft_atoi_base(line + i + 1);
+				i += 9;
+			}
+			tab++;
 		}
 		i++;
-		j++;
-        }
-	return (data);
-}
-
-t_node	**ft_add_map(t_map *map, t_node **old_map, char *line)
-{
-	int	i;
-	t_node	**res;
-	t_node	*data;
-
-	printf ("%p\n%d\n", (void *) map, map->height);
-	if (map->weight == 0)
-		map->weight = ft_get_weight(line);
-	printf ("%p\n%d\n", (void *) map, map->height);
-	data = ft_export_data(line, map);
-	res =  calloc(map->height + 2, sizeof(t_node *));
-	i = 0;
-	if (!old_map)
-	{
-		while (old_map[i])
-		{
-			res[i] = old_map[i];
-			i++;
-		}
 	}
-	res[i] = data;
-	res[i + 1] = NULL;
-	map->height++;
-	free(old_map);
 	return (res);
 }
 
-t_node	**ft_write_map(t_map *map, int fd)
+t_node	**ft_add_data(t_node *data, t_node **tab, t_map *map_info)
 {
-	char	*line;
-	t_node	**res_map;
+	int		i;
+	t_node	**new_tab;
 
-	res_map = NULL;
+	new_tab = calloc (map_info->height + 1, sizeof(t_node *));
+	i = 0;
+	while (i < map_info->height)
+	{
+		new_tab[i] = tab[i];
+		i++;
+	}
+	new_tab[i] = data;
+	free(tab);
+	return (new_tab);
+}
+
+t_node	**ft_read_map(int fd, char *line, t_map *map_info)
+{
+	t_node	**tab;
+	t_node	*data;
+
+	data = ft_create_node_list(line, map_info);
+	tab = (t_node **) calloc (2, sizeof(t_node **));
+	tab[0] = data;
+	map_info->height++;
+	free (line);
+	line = get_next_line(fd);
+	while (line)
+	{
+		data = ft_create_node_list(line, map_info);
+		tab = ft_add_data(data, tab, map_info);
+		map_info->height++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (tab);
+}
+
+t_map	*ft_init_map(char **av)
+{
+	int		fd;
+	char	*line;
+	t_map	*map_info;
+
+	map_info = calloc (sizeof(t_map), 1);
+	if (!map_info)
+		return (NULL);
+	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+		return (NULL);
 	line = get_next_line(fd);
 	if (!line)
 		return (NULL);
-	while (line)
-	{
-		ft_add_map(map, res_map, line);
-		free (line);
-		line = get_next_line(fd);
-	}
-	return (res_map);
+	map_info->weight = ft_count_weight(line);
+	map_info->map = ft_read_map(fd, line, map_info);
+	return (map_info);
 }
 
-t_map	*ft_init_map(char *name)
-{
-	int		fd;
-	t_map	*map;
-
-	map = calloc(sizeof(t_map), 1);
-	if (!map)
-		return (NULL);
-	fd = open(name, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	map->map = ft_write_map(map, fd);
-	return (map);
-}
-
-t_vars	*ft_init_fdf(int ac, char **av)
+t_vars	*ft_init_fdf(char **av)
 {
 	t_vars	*vars;
 
 	vars = calloc(sizeof(t_vars), 1);
 	if (!vars)
 		return (NULL);
-	if (ac != 2)
+	vars->map_info = ft_init_map(av);
+	if (!vars->map_info)
+	{
+		free(vars);
 		return (NULL);
-	vars->map = ft_init_map(av[1]);
-	if (!vars->map)
-		return (NULL);
+	}
 	return (vars);
 }
