@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:22 by gbricot           #+#    #+#             */
-/*   Updated: 2023/06/28 17:14:18 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/06/29 13:07:32 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	ft_close_button(t_vars *vars)
 {
 	ft_free_all(vars);
-	return (42);
+	return (0);
 }
 
 static int	ft_wich_key(int keycode, t_vars *vars)
@@ -38,24 +38,24 @@ void	ft_draw_lines(t_vars *vars, int x, int y, int color)
 	j = x;
 	k = y;
 	l = y;
-	while (i > 500 && j < 0 && l < 0 && k > 500)
+	while (i < 1080 || j > 0 || l > 0 || k < 1920)
 	{
-		if (i > 500)
+		if (i < 1080)
 		{
 			mlx_pixel_put(vars->mlx, vars->win, x, i, color);
 			i++;
 		}
-		if (j < 0)
+		if (j > 0)
 		{
 			mlx_pixel_put(vars->mlx, vars->win, x, j, color);
 			j--;
 		}
-		if (k > 500)
+		if (k < 1920)
                 {
                         mlx_pixel_put(vars->mlx, vars->win, k, y, color);
                         k++;
                 }
-		if (l < 0)
+		if (l > 0)
                 {
                         mlx_pixel_put(vars->mlx, vars->win, l, y, color);
                         l--;
@@ -63,13 +63,47 @@ void	ft_draw_lines(t_vars *vars, int x, int y, int color)
 	}
 }
 
+void	ft_draw_vector(int x2, int y2, t_vars *vars)
+{
+	float	error;
+	float	slope;
+	float	y1;
+	int	x1;
+
+	if (vars->click == 0)
+	{
+		vars->mouse_x = x2;
+		vars->mouse_y = y2;
+		vars->click = 1;
+	}
+	else
+	{
+		error = 0.0;
+		slope = (float) (y2- vars->mouse_y) / (float) (x2 - vars->mouse_x);
+		y1 = vars->mouse_y;
+		x1 = vars->mouse_x;
+		while (x1 <= x2)
+		{
+			mlx_pixel_put(vars->mlx, vars->win, x1, y1, INT_MAX);
+			error += slope;
+			if (error >= 0.5)
+			{
+				y1++;
+				error -= 1.0;
+			}
+			x1++;
+		}
+		vars->click = 0;
+	}
+}
 
 static int	ft_mouse(int keycode, int x, int y, t_vars *vars)
 {
 	printf("mouse_x %d, mouse_y %d keycode %d\n", vars->mouse_x, vars->mouse_y, keycode);
-	//mlx_pixel_put(vars->mlx, vars->win, x, y, rand());
-	ft_draw_lines(vars, x, y, rand());
-	//printf("X :%d - Y :%d\n", x, y);
+	if (keycode == 4 || keycode == 5)
+		ft_draw_lines(vars, x, y, rand());
+	if (keycode == 1)
+		ft_draw_vector(x, y, vars);
         return (0);
 }
 
@@ -82,17 +116,14 @@ int	main(int ac, char **av)
 	vars = ft_init_fdf(av);
 	if (!vars)
 		return (0);
-	vars->mouse_x = 250;
-	vars->mouse_y = 250;
 	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, 500, 500, "bite.lolmdr");
-	vars->img = mlx_new_image(vars->mlx, 500, 500);
+	vars->win = mlx_new_window(vars->mlx, 1920, 1080, "Aife Des Heifent\n");
+	vars->img = mlx_new_image(vars->mlx, 1920, 1080);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	mlx_hook(vars->win, 17, 0L, ft_close_button, vars);
 	mlx_key_hook(vars->win, ft_wich_key, vars);
-	mlx_pixel_put(vars->mlx, vars->win, vars->mouse_x, vars->mouse_y, 255);
 	mlx_mouse_hook(vars->win, ft_mouse, vars);
-/*	int	i = 0;
+	int	i = 0;
 	int	j = 0;
 	while (j < vars->map_info->height)
 	{
@@ -104,7 +135,7 @@ int	main(int ac, char **av)
 		i = 0;
 		j++;
 		printf ("\n");
-	}*/
+	}
 	mlx_loop(vars->mlx);
 	return (0);
 }

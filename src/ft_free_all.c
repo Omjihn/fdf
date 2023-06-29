@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:02:02 by gbricot           #+#    #+#             */
-/*   Updated: 2023/06/28 15:16:37 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/06/29 13:11:33 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	ft_free_all(t_vars *vars)
 		free(vars->map_info->map);
 		free(vars->map_info);
 	}
-	mlx_destroy_image(vars->mlx, vars->img);
+	mlx_clear_window(vars->mlx, vars->win);
 	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_display(vars->mlx);
 	free (vars->mlx);
 	free (vars);

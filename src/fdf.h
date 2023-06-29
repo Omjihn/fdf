@@ -45,6 +45,7 @@ typedef struct s_vars
 	void	*mlx;
 	void	*win;
 	void	*img;
+	int	click;
 	int	mouse_x;
 	int	mouse_y;
 	t_map	*map_info;
