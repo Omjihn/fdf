@@ -17,6 +17,7 @@ CC =	gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC =	src/main.c \
+	src/ft_draw_algos.c \
 	src/ft_init.c \
 	src/ft_free_all.c \
 	gnl/get_next_line.c \

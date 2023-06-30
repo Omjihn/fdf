@@ -24,6 +24,10 @@
 # include <unistd.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <limits.h>
+
+# define WIN_L 500
+# define WIN_H 500
 
 # define BUFFER 500
 
@@ -54,6 +58,8 @@ typedef struct s_vars
 
 int		ft_count_weight(char *line);
 
+void	ft_draw_octant_0(int x2, int y2, t_vars *vars);
+void    ft_draw_octant_1(int x2, int y2, t_vars *vars);
 void	ft_free_all(t_vars *vars);
 
 t_node	*ft_create_node_list(char *line, t_map *map_info);

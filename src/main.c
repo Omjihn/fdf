@@ -38,9 +38,9 @@ void	ft_draw_lines(t_vars *vars, int x, int y, int color)
 	j = x;
 	k = y;
 	l = y;
-	while (i < 1080 || j > 0 || l > 0 || k < 1920)
+	while (i < WIN_H || j > 0 || l > 0 || k < WIN_L)
 	{
-		if (i < 1080)
+		if (i < WIN_H)
 		{
 			mlx_pixel_put(vars->mlx, vars->win, x, i, color);
 			i++;
@@ -50,7 +50,7 @@ void	ft_draw_lines(t_vars *vars, int x, int y, int color)
 			mlx_pixel_put(vars->mlx, vars->win, x, j, color);
 			j--;
 		}
-		if (k < 1920)
+		if (k < WIN_L)
                 {
                         mlx_pixel_put(vars->mlx, vars->win, k, y, color);
                         k++;
@@ -65,36 +65,26 @@ void	ft_draw_lines(t_vars *vars, int x, int y, int color)
 
 void	ft_draw_vector(int x2, int y2, t_vars *vars)
 {
-	float	error;
-	float	slope;
-	float	y1;
-	int	x1;
-
 	if (vars->click == 0)
 	{
 		vars->mouse_x = x2;
 		vars->mouse_y = y2;
 		vars->click = 1;
 	}
-	else
+	else if (vars->mouse_x < x2 && vars->mouse_y <= y2
+			 && (vars->mouse_x - x2) < (vars->mouse_y - y2))
 	{
-		error = 0.0;
-		slope = (float) (y2- vars->mouse_y) / (float) (x2 - vars->mouse_x);
-		y1 = vars->mouse_y;
-		x1 = vars->mouse_x;
-		while (x1 <= x2)
-		{
-			mlx_pixel_put(vars->mlx, vars->win, x1, y1, INT_MAX);
-			error += slope;
-			if (error >= 0.5)
-			{
-				y1++;
-				error -= 1.0;
-			}
-			x1++;
-		}
-		vars->click = 0;
+		printf("Octant 0\n");
+		ft_draw_octant_0(x2, y2, vars);
 	}
+	else if (vars->mouse_x < x2 && vars->mouse_y <= y2
+			&& (vars->mouse_x - x2) > (vars->mouse_y - y2))
+	{
+		printf("Octant 1\n");
+		ft_draw_octant_1(x2, y2, vars);
+	}
+	else
+		vars->click = 0;
 }
 
 static int	ft_mouse(int keycode, int x, int y, t_vars *vars)
@@ -117,8 +107,8 @@ int	main(int ac, char **av)
 	if (!vars)
 		return (0);
 	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, 1920, 1080, "Aife Des Heifent\n");
-	vars->img = mlx_new_image(vars->mlx, 1920, 1080);
+	vars->win = mlx_new_window(vars->mlx, WIN_L, WIN_H, "Aife Des Heifent\n");
+	vars->img = mlx_new_image(vars->mlx, WIN_L, WIN_H);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	mlx_hook(vars->win, 17, 0L, ft_close_button, vars);
 	mlx_key_hook(vars->win, ft_wich_key, vars);
