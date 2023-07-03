@@ -60,6 +60,8 @@ int		ft_count_weight(char *line);
 
 void	ft_draw_octant_0(int x2, int y2, t_vars *vars);
 void    ft_draw_octant_1(int x2, int y2, t_vars *vars);
+void	ft_draw_octant_6(int x2, int y2, t_vars *vars);
+void	ft_draw_octant_7(int x2, int y2, t_vars *vars);
 void	ft_free_all(t_vars *vars);
 
 t_node	*ft_create_node_list(char *line, t_map *map_info);

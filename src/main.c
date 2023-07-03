@@ -83,13 +83,25 @@ void	ft_draw_vector(int x2, int y2, t_vars *vars)
 		printf("Octant 1\n");
 		ft_draw_octant_1(x2, y2, vars);
 	}
+	else if (vars->mouse_x < x2 && vars->mouse_y >= y2
+                        && (x2 - vars->mouse_x) > (y2 - vars->mouse_y))
+	{
+		printf("Octant 6\n");
+		ft_draw_octant_6(x2, y2, vars);
+	}
+	else if (vars->mouse_x < x2 && vars->mouse_y >= y2
+			&& (x2 - vars->mouse_x) < (y2 - vars->mouse_y))
+	{
+		printf("Octant 7\n");
+		ft_draw_octant_7(x2, y2, vars);
+	}
 	else
 		vars->click = 0;
 }
 
 static int	ft_mouse(int keycode, int x, int y, t_vars *vars)
 {
-	printf("mouse_x %d, mouse_y %d keycode %d\n", vars->mouse_x, vars->mouse_y, keycode);
+	//printf("mouse_x %d, mouse_y %d keycode %d\n", vars->mouse_x, vars->mouse_y, keycode);
 	if (keycode == 4 || keycode == 5)
 		ft_draw_lines(vars, x, y, rand());
 	if (keycode == 1)
