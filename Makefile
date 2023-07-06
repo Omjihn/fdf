@@ -6,7 +6,7 @@
 #    By: gbricot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/27 16:10:49 by gbricot           #+#    #+#              #
-#    Updated: 2023/06/28 14:05:11 by gbricot          ###   ########.fr        #
+#    Updated: 2023/07/06 20:21:13 by gbricot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRC =	src/main.c \
 	src/ft_draw_algos.c \
 	src/ft_init.c \
+	src/ft_atoi_base.c \
 	src/ft_free_all.c \
 	gnl/get_next_line.c \
 	gnl/get_next_line_utils.c

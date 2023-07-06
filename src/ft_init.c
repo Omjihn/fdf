@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:40 by gbricot           #+#    #+#             */
-/*   Updated: 2023/06/28 14:19:13 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/06 18:39:05 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ t_node	*ft_create_node_list(char *line, t_map *map_info)
 				i++;
 			if (line[i] == ',')
 			{
-				//res[tab].color = ft_atoi_base(line + i + 1);
-				i += 9;
+				res[tab].color = ft_atoi_base(line + i + 1);
+				while (line[i] != ' ' && line[i] != '\n')
+					i++;
 			}
 			tab++;
 		}
@@ -132,6 +133,7 @@ t_vars	*ft_init_fdf(char **av)
 	vars = calloc(sizeof(t_vars), 1);
 	if (!vars)
 		return (NULL);
+	vars->zoom = 20;
 	vars->map_info = ft_init_map(av);
 	if (!vars->map_info)
 	{

@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:22 by gbricot           #+#    #+#             */
-/*   Updated: 2023/06/29 13:07:32 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/06 19:03:29 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,40 +63,39 @@ void	ft_draw_lines(t_vars *vars, int x, int y, int color)
 	}
 }
 
-void	ft_draw_vector(int x2, int y2, t_vars *vars)
+void	ft_draw_vector(int x1, int y1, int x2, int y2, t_vars *vars)
 {
-	if (vars->click == 0)
+	int	temp;
+
+	if (x1 > x2)
 	{
-		vars->mouse_x = x2;
-		vars->mouse_y = y2;
-		vars->click = 1;
+		temp = x2;
+		x2 = x1;
+		x1 = temp;
+		temp = y2;
+		y2 = y1;
+		y1 = temp;
 	}
-	else if (vars->mouse_x < x2 && vars->mouse_y <= y2
-			 && (vars->mouse_x - x2) < (vars->mouse_y - y2))
+	if (x1 < x2 && y1 <= y2 && (x1 - x2) <= (y1 - y2))
 	{
 		printf("Octant 0\n");
-		ft_draw_octant_0(x2, y2, vars);
+		ft_draw_octant_0(x1, y1, x2, y2, vars);
 	}
-	else if (vars->mouse_x < x2 && vars->mouse_y <= y2
-			&& (vars->mouse_x - x2) > (vars->mouse_y - y2))
+	else if (x1 <= x2 && y1 <= y2 && (x1 - x2) > (y1 - y2))
 	{
 		printf("Octant 1\n");
-		ft_draw_octant_1(x2, y2, vars);
+		ft_draw_octant_1(x1, y1, x2, y2, vars);
 	}
-	else if (vars->mouse_x < x2 && vars->mouse_y >= y2
-                        && (x2 - vars->mouse_x) > (y2 - vars->mouse_y))
+	else if (x1 < x2 && y1 >= y2 && (x1 - x2) > (y2 - y1))
 	{
 		printf("Octant 6\n");
-		ft_draw_octant_6(x2, y2, vars);
+		ft_draw_octant_6(x1, y1, x2, y2, vars);
 	}
-	else if (vars->mouse_x < x2 && vars->mouse_y >= y2
-			&& (x2 - vars->mouse_x) < (y2 - vars->mouse_y))
+	else if (x1 < x2 && y1 >= y2 && (x1 - x2) < (y2 - y1))
 	{
 		printf("Octant 7\n");
-		ft_draw_octant_7(x2, y2, vars);
+		ft_draw_octant_7(x1, y1, x2, y2, vars);
 	}
-	else
-		vars->click = 0;
 }
 
 static int	ft_mouse(int keycode, int x, int y, t_vars *vars)
@@ -104,10 +103,28 @@ static int	ft_mouse(int keycode, int x, int y, t_vars *vars)
 	//printf("mouse_x %d, mouse_y %d keycode %d\n", vars->mouse_x, vars->mouse_y, keycode);
 	if (keycode == 4 || keycode == 5)
 		ft_draw_lines(vars, x, y, rand());
-	if (keycode == 1)
-		ft_draw_vector(x, y, vars);
         return (0);
 }
+
+void	ft_draw(t_vars *vars)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < vars->map_info->height)
+	{
+		x = 0;
+		while (x < vars->map_info->weight)
+		{
+			ft_draw_vector(x, y, x + 1, y, vars);
+			ft_draw_vector(x, y, x, y + 1, vars);
+			x++;
+		}
+		y++;
+	}
+}
+			
 
 int	main(int ac, char **av)
 {
@@ -125,19 +142,23 @@ int	main(int ac, char **av)
 	mlx_hook(vars->win, 17, 0L, ft_close_button, vars);
 	mlx_key_hook(vars->win, ft_wich_key, vars);
 	mlx_mouse_hook(vars->win, ft_mouse, vars);
-	int	i = 0;
+	ft_draw(vars);
+/*	int	i = 0;
 	int	j = 0;
 	while (j < vars->map_info->height)
 	{
 		while (i < vars->map_info->weight)
 		{
 			printf("%d ", vars->map_info->map[j][i].nb);
+
+//			if (vars->map_info->map[j][i].color != 0)
+				//printf(", %d ", vars->map_info->map[j][i].color);
 			i++;
 		}
 		i = 0;
 		j++;
 		printf ("\n");
-	}
+	}*/
 	mlx_loop(vars->mlx);
 	return (0);
 }
