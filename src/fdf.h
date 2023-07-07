@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:54:49 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/07 14:36:06 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/07 16:03:43 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define WIN_H 2000
 
 # define PADDING_L 2000
-# define PADDING_H 200
+# define PADDING_H 1000
 # define ANGLE 0.80
 
 

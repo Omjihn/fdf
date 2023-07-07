@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:40 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/07 14:35:21 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/07 16:03:07 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_vars	*ft_init_fdf(char **av)
 	vars = calloc(sizeof(t_vars), 1);
 	if (!vars)
 		return (NULL);
-	vars->zoom = 15;
+	vars->zoom = 50;
 	vars->map_info = ft_init_map(av);
 	if (!vars->map_info)
 	{

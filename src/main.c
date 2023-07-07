@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:22 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/07 14:34:30 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/07 16:31:59 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static int	ft_wich_key(int keycode, t_vars *vars)
 {
 	if (keycode == 65307)
 		ft_free_all(vars);
+//	if (keycode == 119 || keycode == 97 || keycode == 115
+//			|| keycode == 100)
+//		ft_translation(keycode);
 	printf("%d\n", keycode);
 	return (0);
 }
