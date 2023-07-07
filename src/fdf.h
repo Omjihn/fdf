@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:54:49 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/07 12:39:46 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/07 14:36:06 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@
 # include <math.h>
 # include <limits.h>
 
-# define WIN_L 2000
+# define WIN_L 3800
 # define WIN_H 2000
 
-# define PADDING 150
+# define PADDING_L 2000
+# define PADDING_H 200
+# define ANGLE 0.80
+
 
 # define BUFFER 500
 
