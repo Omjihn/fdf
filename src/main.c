@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:22 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/06 19:03:29 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/07 13:05:37 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,19 @@ void	ft_draw_lines(t_vars *vars, int x, int y, int color)
 	}
 }
 
-void	ft_draw_vector(int x1, int y1, int x2, int y2, t_vars *vars)
+void	ft_isometric(float *x, float *y, int z)
+{
+	*x = (*x - *y) * cos(0.8);
+	*y = (*x + *y) * sin(0.8) - z;
+}
+
+void	ft_draw_vector(float x1, float y1, float x2, float y2, t_vars *vars)
 {
 	int	temp;
 
+
+	ft_isometric(&x1, &y1, vars->map_info->map[(int) y1][(int) x1].nb);
+        ft_isometric(&x2, &y2, vars->map_info->map[(int) y2][(int) x2].nb);
 	if (x1 > x2)
 	{
 		temp = x2;
@@ -78,22 +87,22 @@ void	ft_draw_vector(int x1, int y1, int x2, int y2, t_vars *vars)
 	}
 	if (x1 < x2 && y1 <= y2 && (x1 - x2) <= (y1 - y2))
 	{
-		printf("Octant 0\n");
+		printf("Octant 0\n x1:%f - y1:%f | x2:%f - y2:%f\n", x1, y1, x2, y2);
 		ft_draw_octant_0(x1, y1, x2, y2, vars);
 	}
 	else if (x1 <= x2 && y1 <= y2 && (x1 - x2) > (y1 - y2))
 	{
-		printf("Octant 1\n");
+		printf("Octant 1\n x1:%f - y1:%f | x2:%f - y2:%f\n", x1, y1, x2, y2);
 		ft_draw_octant_1(x1, y1, x2, y2, vars);
 	}
 	else if (x1 < x2 && y1 >= y2 && (x1 - x2) > (y2 - y1))
 	{
-		printf("Octant 6\n");
+		printf("Octant 6\n x1:%f - y1:%f | x2:%f - y2:%f\n", x1, y1, x2, y2);
 		ft_draw_octant_6(x1, y1, x2, y2, vars);
 	}
 	else if (x1 < x2 && y1 >= y2 && (x1 - x2) < (y2 - y1))
 	{
-		printf("Octant 7\n");
+		printf("Octant 7\n x1:%f - y1:%f | x2:%f - y2:%f\n", x1, y1, x2, y2);
 		ft_draw_octant_7(x1, y1, x2, y2, vars);
 	}
 }
@@ -108,8 +117,8 @@ static int	ft_mouse(int keycode, int x, int y, t_vars *vars)
 
 void	ft_draw(t_vars *vars)
 {
-	int	x;
-	int	y;
+	float	x;
+	float	y;
 
 	y = 0;
 	while (y < vars->map_info->height)
@@ -117,8 +126,10 @@ void	ft_draw(t_vars *vars)
 		x = 0;
 		while (x < vars->map_info->weight)
 		{
-			ft_draw_vector(x, y, x + 1, y, vars);
-			ft_draw_vector(x, y, x, y + 1, vars);
+			if (x + 1 != vars->map_info->weight)
+				ft_draw_vector(x, y, x + 1, y, vars);
+			if (y + 1 != vars->map_info->height)
+				ft_draw_vector(x, y, x, y + 1, vars);
 			x++;
 		}
 		y++;

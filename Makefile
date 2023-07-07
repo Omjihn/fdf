@@ -6,7 +6,7 @@
 #    By: gbricot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/27 16:10:49 by gbricot           #+#    #+#              #
-#    Updated: 2023/07/06 20:21:13 by gbricot          ###   ########.fr        #
+#    Updated: 2023/07/07 12:04:22 by gbricot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME =	fdf
 
 CC =	gcc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS =  -g
 
 SRC =	src/main.c \
 	src/ft_draw_algos.c \
