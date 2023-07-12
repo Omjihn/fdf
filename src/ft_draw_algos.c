@@ -21,6 +21,10 @@ void	ft_draw_octant_0(float x1, float y1, float x2, float y2, t_vars *vars)
 	x2 *= vars->zoom;
 	y1 *= vars->zoom;
 	y2 *= vars->zoom;
+	x1 += vars->marging_x;
+	x2 += vars->marging_x;
+	y1 += vars->marging_y;
+	y2 += vars->marging_y;
 	error = 0.0;
 	slope = (float) (y2 - y1) / (float) (x2 - x1);
 	while (x1 <= x2)
@@ -45,6 +49,10 @@ void	ft_draw_octant_1(float x1, float y1, float x2, float y2, t_vars *vars)
         x2 *= vars->zoom;
         y1 *= vars->zoom;
         y2 *= vars->zoom;
+	x1 += vars->marging_x;
+        x2 += vars->marging_x;
+        y1 += vars->marging_y;
+        y2 += vars->marging_y;
 	error = 0.0;
 	slope = (float) (x2 - x1) / (float) (y2 - y1);
 	while (y1 <= y2)
@@ -69,6 +77,10 @@ void	ft_draw_octant_6(float x1, float y1, float x2, float y2, t_vars *vars)
         x2 *= vars->zoom;
         y1 *= vars->zoom;
         y2 *= vars->zoom;
+	x1 += vars->marging_x;
+        x2 += vars->marging_x;
+        y1 += vars->marging_y;
+        y2 += vars->marging_y;
 	error = 0.0;
 	slope = (float) (x2 - x1) / (float) (y1 - y2);
 	while (y1 >= y2)
@@ -93,6 +105,10 @@ void	ft_draw_octant_7(float x1, float y1, float x2, float y2, t_vars *vars)
         x2 *= vars->zoom;
         y1 *= vars->zoom;
         y2 *= vars->zoom;
+	x1 += vars->marging_x;
+        x2 += vars->marging_x;
+        y1 += vars->marging_y;
+        y2 += vars->marging_y;
 	error = 0.0;
 	slope = (float) (y1 - y2) / (float) (x2 - x1);
 	while (x1 <= x2)

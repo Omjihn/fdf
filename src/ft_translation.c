@@ -10,9 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "fdf.h"
+
 /* keycodes:  119 = w | 97 = a | 115 = s | 100 = d 
 */
 
 void	ft_translation(int keycode, t_vars *vars)
 {
-	
+	if (keycode == 115 || keycode == 65364)
+		vars->marging_y -= 10;
+	else if (keycode == 100 || keycode == 65363)
+		vars->marging_x -= 10;
+	else if (keycode == 119 || keycode == 65362)
+		vars->marging_y += 10;
+	else
+		vars->marging_x += 10;
+	ft_draw(vars);
+}

@@ -126,6 +126,11 @@ t_map	*ft_init_map(char **av)
 	return (map_info);
 }
 
+//static void	ft_calculate_zoom_win(t_vars *vars)
+//{
+//
+//}
+
 t_vars	*ft_init_fdf(char **av)
 {
 	t_vars	*vars;
@@ -133,7 +138,8 @@ t_vars	*ft_init_fdf(char **av)
 	vars = calloc(sizeof(t_vars), 1);
 	if (!vars)
 		return (NULL);
-	vars->zoom = 50;
+	//ft_calculate_zoom_win(vars);
+	vars->zoom = 20;
 	vars->map_info = ft_init_map(av);
 	if (!vars->map_info)
 	{

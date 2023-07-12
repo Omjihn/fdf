@@ -27,11 +27,11 @@
 # include <math.h>
 # include <limits.h>
 
-# define WIN_L 3800
-# define WIN_H 2000
+# define WIN_L 600
+# define WIN_H 600
 
-# define PADDING_L 2000
-# define PADDING_H 1000
+# define PADDING_L 100
+# define PADDING_H 100
 # define ANGLE 0.80
 
 
@@ -59,17 +59,28 @@ typedef struct s_vars
 	int	mouse_x;
 	int	mouse_y;
 	int	zoom;
+	int	marging_x;
+	int	marging_y;
 	t_map	*map_info;
 }			t_vars;
 
 int		ft_count_weight(char *line);
 int		ft_atoi_base(char *nb);
 
+/*		HOOKS		*/
+
+int		ft_close_button(t_vars *vars);
+int		ft_wich_key(int keycode, t_vars *vars);
+int		ft_mouse(int keycode, int x, int y, t_vars *vars);
+
 void	ft_draw_octant_0(float x1, float y1, float x2, float y2, t_vars *vars);
 void    ft_draw_octant_1(float x1, float y1, float x2, float y2, t_vars *vars);
 void	ft_draw_octant_6(float x1, float y1, float x2, float y2, t_vars *vars);
 void	ft_draw_octant_7(float x1, float y1, float x2, float y2, t_vars *vars);
+void	ft_draw(t_vars *vars);
+void	ft_draw_lines(t_vars *vars, int x, int y, int color);
 void	ft_isometric(float *x, float *y, int z);
+void	ft_translation(int keycode, t_vars *vars);
 void	ft_free_all(t_vars *vars);
 
 t_node	*ft_create_node_list(char *line, t_map *map_info);

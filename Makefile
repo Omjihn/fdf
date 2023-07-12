@@ -14,10 +14,13 @@ NAME =	fdf
 
 CC =	gcc
 
-CFLAGS = -Wall -Wextra -Werror -pg -lpthread
+CFLAGS = -Wall -Wextra -Werror
 
 SRC =	src/main.c \
+	src/ft_draw.c \
 	src/ft_draw_algos.c \
+	src/ft_hooks.c \
+	src/ft_translation.c \
 	src/ft_init.c \
 	src/ft_atoi_base.c \
 	src/ft_free_all.c \
