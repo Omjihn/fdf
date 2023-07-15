@@ -25,6 +25,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stddef.h>
 # include <limits.h>
 
 # define WIN_L 600
@@ -33,7 +34,6 @@
 # define PADDING_L 100
 # define PADDING_H 100
 # define ANGLE 0.80
-
 
 # define BUFFER 500
 
@@ -61,6 +61,8 @@ typedef struct s_vars
 	int	zoom;
 	int	marging_x;
 	int	marging_y;
+	int     win_l;
+	int     win_h;
 	t_map	*map_info;
 }			t_vars;
 

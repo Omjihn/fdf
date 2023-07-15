@@ -12,9 +12,9 @@ void	ft_draw_lines(t_vars *vars, int x, int y, int color)
 	j = x;
 	k = y;
 	l = y;
-	while (i < WIN_H || j > 0 || l > 0 || k < WIN_L)
+	while (i < vars->win_h || j > 0 || l > 0 || k < vars->win_l)
 	{
-		if (i < WIN_H)
+		if (i < vars->win_h)
 		{
 			mlx_pixel_put(vars->mlx, vars->win, x, i, color);
 			i++;
@@ -24,7 +24,7 @@ void	ft_draw_lines(t_vars *vars, int x, int y, int color)
 			mlx_pixel_put(vars->mlx, vars->win, x, j, color);
 			j--;
 		}
-		if (k < WIN_L)
+		if (k < vars->win_l)
                 {
                         mlx_pixel_put(vars->mlx, vars->win, k, y, color);
                         k++;
@@ -51,10 +51,12 @@ void	ft_draw_vector(float x1, float y1, float x2, float y2, t_vars *vars)
 	int	z2 = vars->map_info->map[(int) y2][(int) x2].nb;
 
 
-	x1 = (x1 - y1) * cos(ANGLE);
+	ft_isometric(&x1, &y1, z1);
+	ft_isometric(&x2, &y2, z2);
+/*	x1 = (x1 - y1) * cos(ANGLE);
 	y1 = (x1 + y1) * sin(ANGLE) - z1;
 	x2 = (x2 - y2) * cos(ANGLE);
-        y2 = (x2 + y2) * sin(ANGLE) - z2;
+        y2 = (x2 + y2) * sin(ANGLE) - z2;*/
 	if (x1 > x2)
 	{
 		temp = x2;
