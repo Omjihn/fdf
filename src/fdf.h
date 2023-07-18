@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:54:49 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/18 04:32:18 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/18 05:24:41 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_vars
 	float	angle;
 	void	*mlx;
 	void	*win;
-	void	*img;
 	int	click;
+	int	color;
 	int	zoom;
 	int	marging_x;
 	int	marging_y;

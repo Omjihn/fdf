@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:01:29 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/07 14:31:37 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/18 05:43:35 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,20 @@ int	ft_atoi_base(char *nb)
 	if (nb[0] != '0' || nb[1] != 'x')
 		return (0);
 	i = 2;
-	while ((nb[i] >= '0' && nb[i] <= '9') || (nb[i] >= 'a' && nb[i] <= 'f'))
+	while ((nb[i] >= '0' && nb[i] <= '9') || (nb[i] >= 'a' && nb[i] <= 'f')
+			|| (nb[i] >= 'A' && nb[i] <= 'F'))
 		i++;
 	j = i - 3;
 	i = 2;
-	while ((nb[i] >= '0' && nb[i] <= '9') || (nb[i] >= 'a' && nb[i] <= 'f'))
+	while ((nb[i] >= '0' && nb[i] <= '9') || (nb[i] >= 'a' && nb[i] <= 'f')
+			|| (nb[i] >= 'A' && nb[i] <= 'F'))
 	{
 		if (nb[i] >= '0' && nb[i] <= '9')
 			res += (nb[i] - 48) << j * 4;
 		else if (nb[i] >= 'a' && nb[i] <= 'f')
 			res += ((nb[i] - 'a') + 10) << j * 4;
+		else if (nb[i] >= 'A' && nb[i] <= 'F')
+			res += ((nb[i] - 'A') + 10) << j * 4;
 		j--;
 		i++;
 	}

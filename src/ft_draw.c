@@ -14,6 +14,9 @@ void	ft_draw_vector(float x1, float y1, float x2, float y2, t_vars *vars)
 	int	z1 = vars->map_info->map[(int) y1][(int) x1].nb;
 	int	z2 = vars->map_info->map[(int) y2][(int) x2].nb;
 
+	vars->color = vars->map_info->map[(int) y2][(int) x2].color;
+	if (vars->color == 0)
+		vars->color = INT_MAX;
 
 	ft_isometric(&x1, &y1, z1, vars);
 	ft_isometric(&x2, &y2, z2, vars);
@@ -48,9 +51,9 @@ void	ft_draw(t_vars *vars)
 		while (x < vars->map_info->weight)
 		{
 			if (x + 1.0 != vars->map_info->weight)
-				ft_draw_vector(x, y, x + 1.0, y, vars);
+				ft_draw_vector(x, y, x + 1, y, vars);
 			if (y + 1.0 != vars->map_info->height)
-				ft_draw_vector(x, y, x, y + 1.0, vars);
+				ft_draw_vector(x, y, x, y + 1, vars);
 			x += 1.0;
 		}
 		y++;

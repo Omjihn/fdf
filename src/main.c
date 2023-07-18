@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:22 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/18 04:56:48 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/18 05:19:07 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,8 @@ int	main(int ac, char **av)
 		return (0);
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx, vars->win_l, vars->win_l, "Fdf");
-	vars->img = mlx_new_image(vars->mlx, vars->win_l, vars->win_l);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	mlx_hook(vars->win, 17, 0L, ft_close_button, vars);
-	mlx_hook(vars->win, 2, 1L<<0, ft_wich_key, vars);
-//	mlx_key_hook(vars->win, ft_wich_key, vars);
+	mlx_hook(vars->win, 2, 1L, ft_wich_key, vars);
 	mlx_mouse_hook(vars->win, ft_mouse, vars);
 	ft_draw(vars);
 	ft_print_map(vars);

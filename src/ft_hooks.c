@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 04:32:31 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/18 04:32:34 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/18 05:44:56 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_wich_key(int keycode, t_vars *vars)
 		mlx_clear_window(vars->mlx, vars->win);
 		ft_draw(vars);
 	}
-	printf("%d\n", keycode);
+	printf("%d - color : %d\n", keycode, vars->color);
 	return (0);
 }
 

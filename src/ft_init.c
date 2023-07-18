@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:40 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/18 04:34:24 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/18 06:38:36 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_node	*ft_create_node_list(char *line, t_map *map_info)
 			if (line[i] == ',')
 			{
 				res[tab].color = ft_atoi_base(line + i + 1);
+				printf("%d :\n", res[tab].color);
 				while (line[i] != ' ' && line[i] != '\n')
 					i++;
 			}
@@ -128,7 +129,14 @@ t_map	*ft_init_map(char **av)
 
 static void	ft_calculate_zoom_win(t_vars *vars)
 {
-	vars->zoom = 50;
+	if (vars->map_info->height > 200 || vars->map_info->weight > 200)
+		vars->zoom = 5;
+	else if (vars->map_info->height > 50 || vars->map_info->weight > 50)
+		vars->zoom = 10;
+	else if  (vars->map_info->height > 30 || vars->map_info->weight > 30)
+		vars->zoom = 20;
+	else
+		vars->zoom = 50;
 	vars->win_l = (vars->map_info->height * vars->zoom) + PADDING_L;
 	vars->win_h = (vars->map_info->weight * vars->zoom) + PADDING_H;
 }
@@ -142,6 +150,7 @@ t_vars	*ft_init_fdf(char **av)
 		return (NULL);
 	vars->map_info = ft_init_map(av);
 	vars->angle = 0.8;
+	vars->color = INT_MAX;
 	if (!vars->map_info)
 	{
 		free(vars);
