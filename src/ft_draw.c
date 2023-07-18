@@ -1,47 +1,11 @@
 
 #include "fdf.h"
 
-void	ft_draw_lines(t_vars *vars, int x, int y, int color)
-{
-	int	i;
-	int	j;
-	int	k;
-	int	l;
-
-	i = x;
-	j = x;
-	k = y;
-	l = y;
-	while (i < vars->win_h || j > 0 || l > 0 || k < vars->win_l)
-	{
-		if (i < vars->win_h)
-		{
-			mlx_pixel_put(vars->mlx, vars->win, x, i, color);
-			i++;
-		}
-		if (j > 0)
-		{
-			mlx_pixel_put(vars->mlx, vars->win, x, j, color);
-			j--;
-		}
-		if (k < vars->win_l)
-                {
-                        mlx_pixel_put(vars->mlx, vars->win, k, y, color);
-                        k++;
-                }
-		if (l > 0)
-                {
-                        mlx_pixel_put(vars->mlx, vars->win, l, y, color);
-                        l--;
-                }
-	}
-}
-
 // a reintegrer
-void	ft_isometric(float *x, float *y, int z)
+void	ft_isometric(float *x, float *y, int z, t_vars *vars)
 {
-	*x = (*x - *y) * cos(ANGLE);
-	*y = (*x + *y) * sin(ANGLE) - z;
+	*x = (*x - *y) * cos(vars->angle);
+	*y = (*x + *y) * sin(vars->angle) - z;
 }
 
 void	ft_draw_vector(float x1, float y1, float x2, float y2, t_vars *vars)
@@ -51,12 +15,8 @@ void	ft_draw_vector(float x1, float y1, float x2, float y2, t_vars *vars)
 	int	z2 = vars->map_info->map[(int) y2][(int) x2].nb;
 
 
-	ft_isometric(&x1, &y1, z1);
-	ft_isometric(&x2, &y2, z2);
-/*	x1 = (x1 - y1) * cos(ANGLE);
-	y1 = (x1 + y1) * sin(ANGLE) - z1;
-	x2 = (x2 - y2) * cos(ANGLE);
-        y2 = (x2 + y2) * sin(ANGLE) - z2;*/
+	ft_isometric(&x1, &y1, z1, vars);
+	ft_isometric(&x2, &y2, z2, vars);
 	if (x1 > x2)
 	{
 		temp = x2;

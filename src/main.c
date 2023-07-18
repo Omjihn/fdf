@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:22 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/07 16:31:59 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/18 04:56:48 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_print_map(t_vars *vars)
                         printf("%d ", vars->map_info->map[j][i].nb);
 
                         if (vars->map_info->map[j][i].color != 0)
-                                printf(", %d ", vars->map_info->map[j][i].color);
+				printf(", %d ", vars->map_info->map[j][i].color);
                         i++;
                 }
                 i = 0;
@@ -46,7 +46,8 @@ int	main(int ac, char **av)
 	vars->img = mlx_new_image(vars->mlx, vars->win_l, vars->win_l);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	mlx_hook(vars->win, 17, 0L, ft_close_button, vars);
-	mlx_key_hook(vars->win, ft_wich_key, vars);
+	mlx_hook(vars->win, 2, 1L<<0, ft_wich_key, vars);
+//	mlx_key_hook(vars->win, ft_wich_key, vars);
 	mlx_mouse_hook(vars->win, ft_mouse, vars);
 	ft_draw(vars);
 	ft_print_map(vars);

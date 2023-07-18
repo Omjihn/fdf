@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:40 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/07 16:03:07 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/07/18 04:34:24 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,13 @@ t_map	*ft_init_map(char **av)
 	map_info->map = ft_read_map(fd, line, map_info);
 	return (map_info);
 }
-/*
+
 static void	ft_calculate_zoom_win(t_vars *vars)
 {
-	if ()
-}*/
+	vars->zoom = 50;
+	vars->win_l = (vars->map_info->height * vars->zoom) + PADDING_L;
+	vars->win_h = (vars->map_info->weight * vars->zoom) + PADDING_H;
+}
 
 t_vars	*ft_init_fdf(char **av)
 {
@@ -138,12 +140,13 @@ t_vars	*ft_init_fdf(char **av)
 	vars = calloc(sizeof(t_vars), 1);
 	if (!vars)
 		return (NULL);
-	//ft_calculate_zoom_win(vars);
 	vars->map_info = ft_init_map(av);
+	vars->angle = 0.8;
 	if (!vars->map_info)
 	{
 		free(vars);
 		return (NULL);
 	}
+	ft_calculate_zoom_win(vars);
 	return (vars);
 }
