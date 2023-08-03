@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:40 by gbricot           #+#    #+#             */
-/*   Updated: 2023/08/03 15:23:31 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/08/03 17:43:08 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ static void	ft_calculate_zoom_win(t_vars *vars)
 	vars->zoom = 10;
 	vars->win_l = 1920;
 	vars->win_h = 1080;
+	vars->marging_x = (vars->win_l) / 2;
+	vars->marging_y = (vars->win_h) / 15;
 }
 
 t_vars	*ft_init_fdf(char **av)
