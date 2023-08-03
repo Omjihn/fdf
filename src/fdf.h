@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:54:49 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/18 06:46:25 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/08/03 17:18:09 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@
 # define WIN_L 600
 # define WIN_H 600
 
-# define PADDING_L 100
-# define PADDING_H 100
-
 # define BUFFER 500
 
 typedef struct s_node
@@ -45,15 +42,27 @@ typedef struct s_node
 typedef struct s_map
 {
 	int	height;
-	int	weight;
+	int	width;
 	t_node	**map;
 }			t_map;
+
+
+typedef struct s_image
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_image;
+
 
 typedef struct s_vars
 {
 	float	angle;
 	void	*mlx;
 	void	*win;
+	t_image	img;
 	int	color;
 	int	zoom;
 	int	marging_x;
@@ -65,7 +74,7 @@ typedef struct s_vars
 
 /*		INIT		*/
 
-int		ft_count_weight(char *line);
+int		ft_count_width(char *line);
 int		ft_atoi_base(char *nb);
 
 void	ft_free_all(t_vars *vars);
@@ -93,5 +102,9 @@ void	ft_draw_octant_7(float x1, float y1, float x2, float y2, t_vars *vars);
 void	ft_draw(t_vars *vars);
 void	ft_isometric(float *x, float *y, int z, t_vars *vars);
 void	ft_translation(int keycode, t_vars *vars);
+
+/*		IMAGE		*/
+
+void	ft_create_image(t_vars *vars);
 
 #endif

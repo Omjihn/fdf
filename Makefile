@@ -6,7 +6,7 @@
 #    By: gbricot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/27 16:10:49 by gbricot           #+#    #+#              #
-#    Updated: 2023/07/18 07:08:52 by gbricot          ###   ########.fr        #
+#    Updated: 2023/08/03 17:18:26 by gbricot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC =	src/main.c \
 	src/ft_draw_algos.c \
 	src/ft_hooks.c \
 	src/ft_translation.c \
+	src/ft_create_image.c \
 	src/ft_init.c \
 	src/ft_atoi_base.c \
 	src/ft_free_all.c \

@@ -6,13 +6,13 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 10:43:40 by gbricot           #+#    #+#             */
-/*   Updated: 2023/07/18 06:58:31 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/08/03 15:23:31 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	ft_count_weight(char *line)
+int	ft_count_width(char *line)
 {
 	int	i;
 	int	in_word;
@@ -44,7 +44,7 @@ t_node	*ft_create_node_list(char *line, t_map *map_info)
 	int		tab;
 	t_node	*res;
 
-	res = calloc (map_info->weight, sizeof(t_node));
+	res = calloc (map_info->width, sizeof(t_node));
 	i = 0;
 	tab = 0;
 	while (line[i])
@@ -121,23 +121,16 @@ t_map	*ft_init_map(char **av)
 	line = get_next_line(fd);
 	if (!line)
 		return (NULL);
-	map_info->weight = ft_count_weight(line);
+	map_info->width = ft_count_width(line);
 	map_info->map = ft_read_map(fd, line, map_info);
 	return (map_info);
 }
 
 static void	ft_calculate_zoom_win(t_vars *vars)
 {
-	if (vars->map_info->height >= 200 || vars->map_info->weight >= 200)
-		vars->zoom = 5;
-	else if (vars->map_info->height >= 50 || vars->map_info->weight >= 50)
-		vars->zoom = 10;
-	else if  (vars->map_info->height >= 30 || vars->map_info->weight >= 30)
-		vars->zoom = 20;
-	else
-		vars->zoom = 50;
-	vars->win_l = (vars->map_info->height * vars->zoom) + PADDING_L;
-	vars->win_h = (vars->map_info->weight * vars->zoom) + PADDING_H;
+	vars->zoom = 10;
+	vars->win_l = 1920;
+	vars->win_h = 1080;
 }
 
 t_vars	*ft_init_fdf(char **av)
